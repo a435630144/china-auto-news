@@ -48,9 +48,15 @@ function smartDecode(buf, headers) {
 
 function normalize(url) {
   if (!url) return null;
-  if (url.startsWith('//')) return 'https:' + url;
+  if (url.startsWith('//')) url = 'https:' + url;
   if (!url.match(/^https?:\/\//)) return null;
-  return url.split('#')[0].replace(/\?.*$/, '');
+  return url.split('#')[0];
+}
+
+// 判断是否是汽车之家文章 URL（旧格式 /news/YYYYMM/ID.html 或新格式 /article?id=xxx）
+function isAutohomeArticle(u) {
+  if (!u) return false;
+  return /autohome\.com\.cn\/(?:article\?id=[a-zA-Z0-9_=]+|\w+\/\d{6}\/\d+\.html)/.test(u);
 }
 
 // ─── 汽车之家文章详情页：提取真实发布时间 ───────────────────────────────────────
@@ -115,7 +121,7 @@ function findOgTitle(ogMap, urlPath) {
 // ─── AUTOHOME ────────────────────────────────────────────────────────────────
 function parseAutohome(html, catName) {
   const articles = [];
-  const validUrlRe = /\/(?:news|drive|use|advice|culture|tech|tuning|ev|hangye|newbrand)\/\d{6}\/\d+\.html/;
+  const validUrlRe = /\/(?:news|drive|use|advice|culture|tech|tuning|ev|hangye|newbrand)\/(?:\d{6}\/\d+\.html|article\?id=[a-zA-Z0-9_]+)/;
 
   const liRe = /<li\s+data-artidanchor\s*=\s*["']?(\d+)["']?[^>]*>([\s\S]*?)<\/li>/gi;
   let m;
@@ -124,7 +130,7 @@ function parseAutohome(html, catName) {
     const urlMatch = liContent.match(/href\s*=\s*["']([^"']+)["']/);
     if (!urlMatch) continue;
     const url = normalize(urlMatch[1]);
-    if (!url || !validUrlRe.test(url)) continue;
+    if (!url || !isAutohomeArticle(url)) continue;
 
     let coverImage = null;
     const imgMatch = liContent.match(/<img\s+[^>]*src\s*=\s*["']([^"']+)["']/i);
@@ -140,10 +146,10 @@ function parseAutohome(html, catName) {
     const h3Match = liContent.match(/<h3[^>]*>\s*([^<]+)\s*<\/h3>/i);
     if (h3Match) title = h3Match[1].trim();
 
-    // URL 只有月（/202604/），时间待详情页补充
-    const monthOnly = url.match(/\/(\d{4})(\d{2})\/\d+\.html/);
-    const publishTime = monthOnly
-      ? monthOnly[1] + '-' + monthOnly[2] + '-01T00:00:00.000Z'
+    // 旧格式 /news/202604/1313635.html 有月信息，新格式 article?id=xxx 无时间
+    const timeMatch = url.match(/\/(\d{4})(\d{2})\/(\d+)\.html/);
+    const publishTime = timeMatch
+      ? timeMatch[1] + '-' + timeMatch[2] + '-01T00:00:00.000Z'
       : null;
 
     articles.push({ url, source: 'autohome', category: catName, title, coverImage, publishTime });
@@ -153,14 +159,14 @@ function parseAutohome(html, catName) {
   let dl;
   while ((dl = dlRe.exec(html)) !== null) {
     const dlContent = dl[1];
-    const ddRe = /<dd\s+class\s*=\s*["']carinfo["']([^>]*)>([\s\S]*?)<\/dd>/gi;
+    const ddRe = /<dd\s+class\s*=\s*["']carinfo["'][^>]*>([\s\S]*?)<\/dd>/gi;
     let dd;
     while ((dd = ddRe.exec(dlContent)) !== null) {
-      const ddContent = dd[2];
+      const ddContent = dd[1];
       const urlMatch = ddContent.match(/href\s*=\s*["']([^"']+)["']/);
       if (!urlMatch) continue;
       const url = normalize(urlMatch[1]);
-      if (!url || !/\/www\.autohome\.com\.cn\/news\/\d{6}\/\d+\.html/.test(url)) continue;
+      if (!url || !isAutohomeArticle(url)) continue;
 
       let coverImage = null;
       const dataSrcMatch = ddContent.match(/data-src\s*=\s*["']([^"']+)["']/);
@@ -372,7 +378,6 @@ const sites = [
       { name: '评测',     url: 'https://news.yiche.com/pingce/' },
       { name: '导购',     url: 'https://news.yiche.com/daogou/' },
       { name: '综合新闻', url: 'https://news.yiche.com/zonghexinwen/' },
-      { name: '新车消息', url: 'https://news.yiche.com/xinchexiaoxi/' },
     ],
     parse: parseYiche,
   },
