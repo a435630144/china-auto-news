@@ -367,6 +367,8 @@ const sites = [
     categories: [
       { name: '最新',     url: 'https://news.yiche.com/' },
       { name: '新车',     url: 'https://news.yiche.com/xinche/' },
+      { name: '技术',     url: 'https://news.yiche.com/jishu/' },
+      { name: '游记',     url: 'https://news.yiche.com/youji/' },
       { name: '评测',     url: 'https://news.yiche.com/pingce/' },
       { name: '导购',     url: 'https://news.yiche.com/daogou/' },
       { name: '综合新闻', url: 'https://news.yiche.com/zonghexinwen/' },

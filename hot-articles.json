@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-04-16T05:34:48.435Z",
-  "total": 1040,
+  "timestamp": "2026-04-16T05:37:59.546Z",
+  "total": 1137,
   "stats": {
     "autohome": {
       "total": 624,
@@ -30,10 +30,12 @@
       }
     },
     "yiche": {
-      "total": 195,
+      "total": 292,
       "categories": {
         "最新": 48,
-        "新车": 1,
+        "新车": 2,
+        "技术": 48,
+        "游记": 48,
         "评测": 48,
         "导购": 48,
         "综合新闻": 33,
@@ -122,14 +124,6 @@
       "title": "新名称/动力系统优化/产品力升级 大众ID.3 Neo官图正式发布",
       "coverImage": "https://img3.autoimg.cn/chejiahaodfs/g34/M06/97/93/400x300_0_autohomecar__ChtpWGnfceCAdxeLAAYoRs5tByM369.jpg",
       "publishTime": "2026-04-15T19:17:00.000Z"
-    },
-    {
-      "url": "https://www.autohome.com.cn/news/202604/1313626.html#pvareaid=102624",
-      "source": "autohome",
-      "category": "最新",
-      "title": "售价36.5万起 全黑外观+红色内饰 新款坦克500黑武士正式上市！",
-      "coverImage": "https://www2.autoimg.cn/chejiahaodfs/g34/M09/97/1C/400x300_0_autohomecar__ChtpWGnfbA2Ac-4TAAaCYFWrs8g613.png",
-      "publishTime": "2026-04-15T19:10:00.000Z"
     },
     {
       "url": "https://www.autohome.com.cn/news/202604/1313624.html#pvareaid=102624",
@@ -274,6 +268,14 @@
       "title": "尚界Z7/Z7T将于4月22日上市 预售22.98万元起 累计订单突破6万台",
       "coverImage": "https://car2.autoimg.cn/cardfs/product/g33/M0B/F1/DB/400x300_0_autohomecar__Chto52nP7CKAKZFdACrP1BPD4CA511.jpg",
       "publishTime": "2026-04-15T12:34:00.000Z"
+    },
+    {
+      "url": "https://www.autohome.com.cn/news/202604/1313605.html#pvareaid=102624",
+      "source": "autohome",
+      "category": "最新",
+      "title": "全新理想L9将于北京车展首发 搭4颗激光雷达 芯片算力2560TOPS",
+      "coverImage": "https://car2.autoimg.cn/cardfs/product/g33/M08/6A/C6/400x300_0_autohomecar__Chto52mFTqGAHX6IAEshkofUbu4401.jpg",
+      "publishTime": "2026-04-15T11:48:00.000Z"
     },
     {
       "url": "https://www.autohome.com.cn/news/202604/1313604.html#pvareaid=102624",
@@ -524,12 +526,12 @@
       "publishTime": "2026-04-14T00:00:00.000Z"
     },
     {
-      "url": "https://www.autohome.com.cn/news/202604/1313605.html#pvareaid=102624",
+      "url": "https://www.autohome.com.cn/news/202604/1313626.html#pvareaid=102624",
       "source": "autohome",
       "category": "新闻",
-      "title": "全新理想L9将于北京车展首发 搭4颗激光雷达 芯片算力2560TOPS",
-      "coverImage": "https://car2.autoimg.cn/cardfs/product/g33/M08/6A/C6/400x300_0_autohomecar__Chto52mFTqGAHX6IAEshkofUbu4401.jpg",
-      "publishTime": "2026-04-15T11:48:00.000Z"
+      "title": "售价36.5万起 全黑外观+红色内饰 新款坦克500黑武士正式上市！",
+      "coverImage": "https://www2.autoimg.cn/chejiahaodfs/g34/M09/97/1C/400x300_0_autohomecar__ChtpWGnfbA2Ac-4TAAaCYFWrs8g613.png",
+      "publishTime": "2026-04-15T19:10:00.000Z"
     },
     {
       "url": "https://www.autohome.com.cn/news/202604/1313574.html#pvareaid=102624",
@@ -1649,7 +1651,7 @@
       "category": "用车",
       "title": "为什么我们对车载导航提不起兴致？",
       "coverImage": "https://www3.autoimg.cn/newsdfs/g25/M05/09/81/400x300_0_autohomecar__ChtliGP3T_uAbTUiAADSiLe5Vvs565.jpg",
-      "publishTime": "2023-02-23T21:30:00.000Z"
+      "publishTime": "2023-02-01T00:00:00.000Z"
     },
     {
       "url": "https://www.autohome.com.cn/use/202302/1277666.html#pvareaid=102624",
@@ -1657,7 +1659,7 @@
       "category": "用车",
       "title": "2023玩什么？带你闲逛ISPO北京户外展",
       "coverImage": "https://www2.autoimg.cn/newsdfs/g25/M09/70/CB/400x300_0_autohomecar__ChtliGPrInKAQOg0AAJPqwalwZY275.jpg",
-      "publishTime": "2023-02-20T07:01:00.000Z"
+      "publishTime": "2023-02-01T00:00:00.000Z"
     },
     {
       "url": "https://www.autohome.com.cn/use/202302/1277194.html#pvareaid=102624",
@@ -2161,7 +2163,7 @@
       "category": "文化",
       "title": "比亚迪与小桔充电官宣共建15000座兆瓦闪充桩",
       "coverImage": "https://www2.autoimg.cn/chejiahaodfs/g30/M02/46/74/400x300_0_autohomecar__CjIFU2g-kmmAaDybAAOBQch5M9g00.jpeg",
-      "publishTime": "2025-06-03T14:14:00.000Z"
+      "publishTime": "2025-06-01T00:00:00.000Z"
     },
     {
       "url": "https://www.autohome.com.cn/culture/202505/1305947.html#pvareaid=102624",
@@ -2697,7 +2699,7 @@
       "category": "科技",
       "title": "与华为强强联手 小鹏G7追光全景HUD有何秘密？",
       "coverImage": "https://www2.autoimg.cn/chejiahaodfs/g31/M02/26/6E/400x300_0_autohomecar__ChtlyGhs7eWAeFxjAAcSBi0PaW0328.png",
-      "publishTime": "2025-07-09T00:00:00.000Z"
+      "publishTime": "2025-07-01T00:00:00.000Z"
     },
     {
       "url": "https://www.autohome.com.cn/tech/202507/1307179.html#pvareaid=102624",
@@ -6804,26 +6806,34 @@
       "publishTime": null
     },
     {
+      "url": "https://news.yiche.com/xinchexiaoxi/20260416/13109161412.html",
+      "source": "yiche",
+      "category": "最新",
+      "title": "吉利银河星耀7正式开启预售 预售价XXX万元起",
+      "coverImage": "https://image.bitautoimg.com/appimage-960-w0/news/2026/04/16/db8a5752-7c47-478a-968d-0776a4d6314a.jpg",
+      "publishTime": "2026-04-16T00:00:00.000Z"
+    },
+    {
       "url": "https://news.yiche.com/xiaoliangshuju/20260416/13109160916.html",
       "source": "yiche",
       "category": "最新",
-      "title": "问界M8上市一年累计交付突破17万辆 里程碑时刻",
-      "coverImage": "https://image.bitautoimg.com/appimage-960-w0/news/2026/04/16/dc98eaae-129a-4d10-accc-8cebbe2cd0f0.jpg",
+      "title": "吉利银河星耀7正式开启预售 预售价XXX万元起",
+      "coverImage": "https://image.bitautoimg.com/appimage-720-w0/news/2026/04/16/e0c71808-c895-4708-9d91-d9cef7b946f6.jpg",
       "publishTime": "2026-04-16T00:00:00.000Z"
     },
     {
       "url": "https://news.yiche.com/xinchexiaoxi/20260416/11109158331.html",
       "source": "yiche",
       "category": "最新",
-      "title": "问界M8上市一年累计交付突破17万辆 里程碑时刻",
-      "coverImage": "https://image.bitautoimg.com/appimage-720-w0/news/2026/04/16/09bf1288-a8ef-46d8-886f-91e4430fdd7c.jpg",
+      "title": "日产北京车展新车阵容 两款全新新能源SUV概念车将全球首秀",
+      "coverImage": "https://image.bitautoimg.com/appimage-720-w0/news/2026/04/16/e0c71808-c895-4708-9d91-d9cef7b946f6.jpg",
       "publishTime": "2026-04-16T00:00:00.000Z"
     },
     {
       "url": "https://news.yiche.com/xinchexiaoxi/20260416/10109156883.html",
       "source": "yiche",
       "category": "最新",
-      "title": "BMW M3 40周年限量版官图 将北京车展亮相/下半年上市",
+      "title": "日产北京车展新车阵容 两款全新新能源SUV概念车将全球首秀",
       "coverImage": "https://image.bitautoimg.com/appimage-720-w0/news/2026/04/16/09bf1288-a8ef-46d8-886f-91e4430fdd7c.jpg",
       "publishTime": "2026-04-16T00:00:00.000Z"
     },
@@ -6831,7 +6841,7 @@
       "url": "https://news.yiche.com/xinchexiaoxi/20260416/10109155696.html",
       "source": "yiche",
       "category": "最新",
-      "title": "BMW M3 40周年限量版官图 将北京车展亮相/下半年上市",
+      "title": "大众ID.3 Neo官图发布 全方位升级",
       "coverImage": "https://image.bitautoimg.com/appimage-720-w0/news/2026/04/16/63a52454-31ed-4ca8-90af-652db4e3d2e5.jpg",
       "publishTime": "2026-04-16T00:00:00.000Z"
     },
@@ -6848,7 +6858,7 @@
       "source": "yiche",
       "category": "最新",
       "title": "哈弗全新旗舰SUV正式定名长城H10 搭载Hi4动力",
-      "coverImage": "https://image.bitautoimg.com/appimage-720-w0/news/2026/04/15/87f2ae1e-4104-4963-aee8-587ec548c169.jpg",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2026/04/15/87f2ae1e-4104-4963-aee8-587ec548c169.jpg",
       "publishTime": "2026-04-15T00:00:00.000Z"
     },
     {
@@ -7182,7 +7192,7 @@
     {
       "url": "https://news.yiche.com/xinchexiaoxi/20260413/17109086443.html",
       "source": "yiche",
-      "category": "最新",
+      "category": "新车",
       "title": "极狐S3预告图 将于北京车展正式发布",
       "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2026/04/13/76eed18f-f990-4cb4-8ac6-6330ba5d950f.jpg",
       "publishTime": "2026-04-13T00:00:00.000Z"
@@ -7194,6 +7204,774 @@
       "title": "魏牌V9X将于4月17日开启预售 归元S平台首款车型",
       "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2026/04/13/0f8f887c-45f4-4488-89c6-f197866a367e.jpg",
       "publishTime": "2026-04-13T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichejishu/20260402/08108706380.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "三代迭代智领安全新标杆 华为巨鲸电池平台3.0技术深度解读",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2026/03/30/1f69a228-8a73-4712-9d5f-1d9301e4b67a.jpg",
+      "publishTime": "2026-04-02T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichesheji/20260326/19108597488.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "2026中国氢能展！鲁吉汽车氨氢技术路线出实招！",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2026/03/26/d2beb3e0-13d2-436c-a2a3-af930d68c3ff.jpg",
+      "publishTime": "2026-03-26T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichejishu/20260319/21108409827.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "地平线2025年财报：中高阶智驾芯片近5倍增长 规模超400万套!",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2026/03/19/59ba1106-97a3-4be4-8c88-85d592137213.jpg",
+      "publishTime": "2026-03-19T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichejishu/20260313/22108248868.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "iCAR V27正式上市！搭载地平线征程6P芯片+HSD辅助驾驶系统！",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2026/03/13/70507568-6a60-43d2-8016-8160bd4653ec.jpg",
+      "publishTime": "2026-03-13T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichesheji/20260211/19107466145.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "出行更安心！地平线HSD首次OTA推送 辅助驾驶体验全面优化！",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2026/02/11/1c040017-24a7-41ef-bbb1-51453b36c3a0.jpg",
+      "publishTime": "2026-02-11T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichejishu/20260130/15107148163.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "2025智驾芯片榜单出炉：地平线强势霸榜！",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2026/01/30/5a232dd1-f925-4d39-b5e0-fca5d574f57a.jpg",
+      "publishTime": "2026-01-30T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichejishu/20251220/11106089526.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "东安动力首台转子发动机R05E点火成功 计划于2027年实现量产",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/12/20/d7ec9786-ef3a-41ab-aea6-1c1fb93e452d.jpg",
+      "publishTime": "2025-12-20T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichesheji/20251208/22105780419.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "技术向高生态同行!首届地平线技术生态大会开幕共赴智能未来!",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/12/08/5a38794d-74e0-4cf3-bc33-776706c1165c.jpg",
+      "publishTime": "2025-12-08T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichejishu/20251202/16105626584.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "强强联手！小鹏X9超级增程全球首发华为DriveONE增程发电机！",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/12/02/6413ff28-9361-41b7-8a8a-c968dfd5fe7e.jpg",
+      "publishTime": "2025-12-02T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichejishu/20251202/11105619363.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "安全才是最大的豪华！华为巨鲸电池平台让安全不分高低配！",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/12/02/0bd33466-04b8-4ee9-9b67-355da8c45f9c.jpg",
+      "publishTime": "2025-12-02T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichesheji/20251118/20105248102.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "重塑豪华车内饰标准 Dinamica让代步车也有高端体验!",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/11/18/049e4144-1d96-463f-ac98-e00aec206100.jpg",
+      "publishTime": "2025-11-18T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichejishu/20251111/21105066124.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "电池&#34;铅改锂&#34;浪潮来袭 旭化成乙腈电解液助力解锁体验新高度!",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/11/11/8a812927-08c3-4c1b-b9ae-8c07e3a0a31e.jpg",
+      "publishTime": "2025-11-11T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichejishu/20251106/23104946532.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "小鹏汇天发布全倾转混电飞行汽车 陆地航母2026年规模化交付!",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/11/06/c21ac1f5-a214-48e5-81df-e174eab08e59.jpg",
+      "publishTime": "2025-11-06T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichejishu/20251024/16104621201.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "Unity团结引擎发布三大战略 极速提升渲染效能",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/10/24/e3e28c6a-2265-4be6-9dd6-af2d4b66cd13.jpg",
+      "publishTime": "2025-10-24T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichejishu/20251024/16104620927.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "Unity开发者大会Unite2025点亮上海 团结引擎促本土创新落地",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/10/24/bec00418-630f-417e-a463-4ffbaefab320.jpg",
+      "publishTime": "2025-10-24T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichejishu/20251024/11104612585.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "深蓝L06辅助驾驶 挑战重庆8D魔幻地形",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/10/24/36f95282-a592-4746-b12b-e4639bf14f4c.jpg",
+      "publishTime": "2025-10-24T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichejishu/20250809/17102716976.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "黑科技来了 看麦格纳智能车门系统如何让开关门优雅从容",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/08/09/ea591364-b091-4c4c-90f0-8ecc750a7e9c.jpg",
+      "publishTime": "2025-08-09T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichejishu/20250806/17102638692.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "以标准铸豪华 以科技映中国 2025奔驰标准科技日解码好车基因",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/08/06/90028c5a-89fa-46ca-8c33-6ff5331cb57f.jpg",
+      "publishTime": "2025-08-06T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichejishu/20250719/10102157926.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "AI重构汽车智造新生态 宝马沈阳工厂展示“数字化”样板",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/07/19/3aa37740-fc7c-4486-9d37-3419b8b9cffc.jpg",
+      "publishTime": "2025-07-19T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichejishu/20250509/11100380035.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "博世集团新设2.5亿欧元创投基金",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/05/09/cbe011ab-f4dc-4783-aff3-0398fc15e36e.jpg",
+      "publishTime": "2025-05-09T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichejishu/20250509/11100379751.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "博世稳步推进2030战略：加筑技术所长，驱动业务发展",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/05/09/fa82c734-d0c9-4138-bb0c-21e5afb8c73a.jpg",
+      "publishTime": "2025-05-09T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichesheji/20250425/07100029506.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "上海车展电装发布&#34;环境·安心&#34;战略,深化本土零碳与智驾实践!",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/04/25/d18294ef-0065-467f-a6ce-d546765cfc66.jpg",
+      "publishTime": "2025-04-25T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichesheji/20250425/07100029492.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "电装上海车展发布&#34;环境·安心&#34;战略,深化本土零碳与智驾实践!",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/04/25/d18294ef-0065-467f-a6ce-d546765cfc66.jpg",
+      "publishTime": "2025-04-25T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichejishu/20250425/00100029392.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "2025新能源汽车电安全技术发布暨交流会成功举办",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/04/25/3621edd1-e0ae-4cac-834b-1743c2572e58.jpg",
+      "publishTime": "2025-04-25T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichejishu/20250319/2199025518.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "揭秘零部件巨头电装中国的“零碳朋友圈”",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/03/19/b985e273-1a89-452e-a638-27693819c3f6.jpg",
+      "publishTime": "2025-03-19T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichejishu/20250318/1698989807.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "第十五届运良越野生态价值共创大会！逆势突围生态共赢！",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/03/18/8f6e1791-fdaa-4704-9968-4b5250084db1.jpg",
+      "publishTime": "2025-03-18T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichejishu/20241224/2197100118.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "荣威DMH发动机量产热效率突破46.3%",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/12/24/775b94f4-d8f0-4c27-9443-438bd91f394e.jpg",
+      "publishTime": "2024-12-24T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichejishu/20241203/2296540319.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "理想汽车：以智能热管理与5C超充打造冬季用车新体验",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/12/03/b63efef4-aad0-41e0-a2e6-40f7d7272316.jpg",
+      "publishTime": "2024-12-03T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichejishu/20241029/1495600250.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "“人车家”产品焕新升级，智能座舱大模型引领未来出行！",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/10/29/509f300c-3c44-4701-b98b-3e9d90308eb5.jpg",
+      "publishTime": "2024-10-29T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichejishu/20241018/2295331631.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "科技 智驭未来 2024奇瑞全球创新大会盛大开幕",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/10/18/9d0329e9-6ada-44c2-9940-5cecc3bf7b41.jpg",
+      "publishTime": "2024-10-18T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichejishu/20240922/1094601927.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "AI in All 斑马智行发布“元神AI”智舱技术品牌",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/09/22/b38b1883-bef6-4519-9edd-3fee7f1349fd.jpg",
+      "publishTime": "2024-09-22T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichejishu/20240829/0993922767.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "不同城市晚高峰路况零接管，地平线高阶智驾产品比肩第一梯队",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/08/29/89def427-7c14-4dd4-b968-35909c6c79a2.jpg",
+      "publishTime": "2024-08-29T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichejishu/20240820/2393673092.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "德国马牌发布全新第七代产品ExtremeContact XC7轮胎",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/08/20/351926b5-4d77-4b5a-a5ab-6549f649304e.jpg",
+      "publishTime": "2024-08-20T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichejishu/20240717/1092721426.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "Nullmax推出新一代自动驾驶技术Nullmax Intelligence",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/07/17/ca842de5-7f78-40e0-bfb0-2fe04b22d3c4.jpg",
+      "publishTime": "2024-07-17T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichejishu/20240712/0792582115.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "电动化集成式解决方案 浅析麦格纳新一代电机和被动安全技术",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/07/12/848c34d2-d420-4cfa-bc99-ad7bb2f40cb6.jpg",
+      "publishTime": "2024-07-12T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichesheji/20240626/2092148040.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "当AGI遇见“陆地空客”L380，商汤绝影大模型上车LEVC",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/06/26/5f43066a-8140-4f11-843b-45a1f5c8da3b.jpg",
+      "publishTime": "2024-06-26T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichesheji/20240612/1891760872.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "阿尔法 ∙ 罗密欧2030-2040概念设计颁奖仪式圆满举行",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/06/12/4cd4b320-3f42-491b-9611-54447adef2ed.jpg",
+      "publishTime": "2024-06-12T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichejishu/20240515/1590614656.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "新一代国产插混技术哪家强？风神L7上的马赫电混独领风骚",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/04/29/44079af7-4433-49e1-8edd-5ebe49e4bee4.jpg",
+      "publishTime": "2024-05-15T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichejishu/20240511/1090914930.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "荣威DMH技术品牌大会专访",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/05/11/e0ef186a-d9dc-4c86-b9eb-fa9b01a046b7.jpg",
+      "publishTime": "2024-05-11T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichesheji/20240427/1290551174.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "北京车展专访长安凯程彭陶 行业首个模块化纯电商用车K01架构",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/04/27/9e8f9ccb-2841-4240-ba9c-38e175e4f122.jpg",
+      "publishTime": "2024-04-27T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichesheji/20240427/0990544989.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "商汤绝影×合众哪吒 再度深化合作 助力哪吒加速拥抱AGI时代",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/04/27/3111bdde-dce6-4c20-aa61-98c3ade91e59.jpg",
+      "publishTime": "2024-04-27T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichesheji/20240427/0090532788.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "像人一样开车!商汤绝影带来端到端自动驾驶解决方案UniAD首秀",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/04/27/92da9dc2-ed24-42fd-858d-7b4f9b029b45.jpg",
+      "publishTime": "2024-04-27T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichejishu/20240427/0090532742.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "固特异亮相北京车展 为新能源时代注入活力/点亮潮流地标",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/04/27/c3d57c43-749d-4bfa-bbc8-f3e31ecf7495.jpg",
+      "publishTime": "2024-04-27T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichesheji/20240427/0090532741.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "易航智能“笃行”城市智驾平台重磅发布 首推征程6E方案！",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/04/27/9215d6f5-3c84-4672-85e8-bea626cce7f9.jpg",
+      "publishTime": "2024-04-27T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichejishu/20240419/0990336510.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "2024北京车展商汤绝影带来真端到端自动驾驶、多模态场景大脑",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/04/19/e5bbee72-6f8f-4425-bfcd-e41e5fe85e05.jpg",
+      "publishTime": "2024-04-19T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichejishu/20231228/1787203156.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "解析启辰大V DD-i插混5万公里越用越好用背后的秘密",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2023/12/22/4c931600-13b4-4174-aa75-d9151df2e478.jpg",
+      "publishTime": "2023-12-28T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichejishu/20231220/0787129929.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "技术党 | 浅谈极氪金砖电池 在行业属于什么水平？",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2023/12/19/088552cf-df52-46e7-86dd-41b6ce55c670.jpg",
+      "publishTime": "2023-12-20T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichejishu/20231214/2186998434.html",
+      "source": "yiche",
+      "category": "技术",
+      "title": "天元架构首亮相 新能源下半场 岚图究竟在卷什么",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2023/12/14/7f76258d-0d68-40a9-9705-417c6793f96a.jpg",
+      "publishTime": "2023-12-14T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichewenhua/20260330/16108704880.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "华为乾崑智行中国！深蓝汽车春日智趣体验营北京举行",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2026/03/30/15986feb-f714-4b20-b947-4b6c29d853ae.jpg",
+      "publishTime": "2026-03-30T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichesaishi/20260315/12108292739.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "迈凯伦车队宣布摩特作为F1车队官方供应商 中国大奖赛开启",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2026/03/15/1030fa14-a5fb-4ca0-bf98-4afa7549cd3a.jpg",
+      "publishTime": "2026-03-15T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichewenhua/20260309/22108137600.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "东风集团股份资本重组方案获高票通过 打造改革新范本!",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2026/03/09/e56f13b4-cb70-4f56-98ba-887f4d6ffc96.jpg",
+      "publishTime": "2026-03-09T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichesaishi/20260226/16107835597.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "卫冕冠军的新皮肤 法拉利2026赛季499P赛车全新涂装发布",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2026/02/26/3193794b-c1ec-4e22-9274-f58f6e6d9713.jpg",
+      "publishTime": "2026-02-26T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichewenhua/20260225/09107798527.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "灯会点亮新春，共话一场“好事”：捷达相伴，奔赴美好",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2026/02/25/b5bacb01-9abf-4131-b748-a484dd4cdfb6.jpg",
+      "publishTime": "2026-02-25T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichewenhua/20260204/14107277039.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "京西智行发布全球经营蓝图 实现高质量发展",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2026/02/04/a2fdd9c7-4f7a-4d6f-9409-cf21a73a6f9b.jpg",
+      "publishTime": "2026-02-04T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichesaishi/20260128/12107088934.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "普利司通搏天族SPORT轮胎助力兰博基尼全新Temerario",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2026/01/28/2ae21b92-148d-4ce8-8f54-7317ebc391a6.jpg",
+      "publishTime": "2026-01-28T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichegaizhuang/20251206/12105723675.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "景飞牌烈马-飒陆：硬派越野的不羁灵魂",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/12/06/2dfd9c92-0117-48ac-9163-75c8a269c959.jpg",
+      "publishTime": "2025-12-06T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichewenhua/20251105/14104915471.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "阿尔法·罗密欧成立定制化汽车中心——BOTTEGAFUORISERIE",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/11/05/20a0f69b-6477-4fdf-9a94-d7ba15b3010c.jpg",
+      "publishTime": "2025-11-05T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichewenhua/20251103/10104856069.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "吉利汽车10月销量再创纪录！助力2025杭州马拉松精彩完赛",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/11/03/a64bc1c6-1b61-4fa8-b8bb-103d0aa779d1.jpg",
+      "publishTime": "2025-11-03T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichesaishi/20251020/16104519319.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "一汽奥迪魅影车队斩获 GT 世界挑战赛亚洲杯组别年度车手冠军",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/10/20/91f0eb7e-3be0-4566-a285-f571a9ec0ca3.jpg",
+      "publishTime": "2025-10-20T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichewenhua/20250914/12103608507.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "宾利MULLINER个性化定制：探索东方美学 与客户灵感共创",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/09/14/5362db63-aaec-4bd3-84fe-4807441e12c0.jpg",
+      "publishTime": "2025-09-14T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichesaishi/20250830/09103221225.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "魏建军“为爱上场”亲自出征2025敦煌越野耐力赛!",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/08/30/5822ab42-7047-4aee-9701-81b5af7aa8a6.jpg",
+      "publishTime": "2025-08-30T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichewenhua/20250829/22103208147.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "与用户同行、集结六大品牌！长城汽车登陆2025成都车展!",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/08/29/1d7b4acf-cae6-4c10-9c47-5cd4bab6b6b0.jpg",
+      "publishTime": "2025-08-29T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichesaishi/20250716/17102087082.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "兰博基尼Temerario GT3赛车将至到底有多强？问问CTO",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/07/16/c38f0a0e-9149-4d86-bb96-02579361185f.jpg",
+      "publishTime": "2025-07-16T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichesaishi/20250623/10101478680.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "D1成都站今日起飘！全球首场新能源飘移巅峰战震撼来袭",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/06/23/8fb66010-ff71-43c2-97ad-d9b033fd07ca.jpg",
+      "publishTime": "2025-06-23T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichewenhua/20250607/12101123747.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "中国国家地理联合宁德时代打造零碳旅行新“米其林指南”！",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/06/07/9f23dee1-2476-4a16-a5f9-f31a6030f11b.jpg",
+      "publishTime": "2025-06-07T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichewenhua/20250605/21101081449.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "宁德时代赋能零碳文旅发展发布《“零碳”目的地·先锋榜单》!",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/06/05/f815d97d-df26-4d31-b85a-b962113c0f9e.jpg",
+      "publishTime": "2025-06-05T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichesaishi/20250604/10101045027.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "韩泰轮胎FE上海站收官 暴雨狂飙见证iON轮胎赛道统治力",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/06/04/7db6c703-9986-4958-aae4-a32836b27dd6.jpg",
+      "publishTime": "2025-06-04T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichesaishi/20250603/11101018899.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "尽享电动激情  日产Formula E车队闪耀上海站赛场",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/06/03/2ff4a5cd-9125-4dbd-8a7f-5c4ea9ba211e.jpg",
+      "publishTime": "2025-06-03T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichewenhua/20250512/22100457553.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "昊铂SSR闪耀2025金盏速度节：科技突破铸就中国超跑新标杆",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/05/12/7d20179a-83d8-4922-b967-6842dc526e7a.jpg",
+      "publishTime": "2025-05-12T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichesaishi/20250512/14100452767.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "致敬quattro45周年 一汽奥迪闪耀2025金盏速度节",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/05/12/99da3199-43ee-4fa2-a166-f5aa12efd745.jpg",
+      "publishTime": "2025-05-12T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichesaishi/20250326/1599220494.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "坚持可持续发展路线 专访倍耐力赛车运动总监",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/03/26/7f15a689-2323-477f-afe7-3dbb8018ef65.jpg",
+      "publishTime": "2025-03-26T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichesaishi/20250324/1499161825.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "保时捷中国CEO：会有更多专为中国定制的保时捷车型",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2025/03/24/b1cd92db-2229-42c0-931b-8d42db6b5b30.jpg",
+      "publishTime": "2025-03-24T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichewenhua/20241211/1896759486.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "聚焦时代需求 革新引领未来 2025中国年度车颁奖典礼成功举办",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/12/11/07377f64-8c97-4bdb-9893-a5c07cd89fbc.jpg",
+      "publishTime": "2024-12-11T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichewenhua/20241210/1796736301.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "长安启源C798首次实车亮相 董宇辉文化专场直播点赞长安",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/12/10/679e3c64-b69b-4038-97f7-4a378fc66841.jpg",
+      "publishTime": "2024-12-10T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichegaizhuang/20241203/2196540272.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "布雷博携五大产品系列登陆2024上海法兰克福汽配展",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/12/03/c7480f97-980c-4a26-b6f4-c5ff6f67fb49.jpg",
+      "publishTime": "2024-12-03T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichewenhua/20241118/1796145895.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "星徽熠熠 奔驰向前 1000 Miglia汽车文化盛事",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/11/18/fee1e906-1d0e-4b3f-81d1-e46d81d02574.jpg",
+      "publishTime": "2024-11-18T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichewenhua/20241111/1495934190.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "五菱汽车致敬奋斗者大会定档11月18日19点30分！",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/11/11/34fd4c18-9431-4a38-bc20-f23352ddf18a.jpg",
+      "publishTime": "2024-11-11T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichewenhua/20241106/1795815974.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "技术现代 先享未来 现代汽车闪耀进博会",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/11/06/bcebb77f-95ef-469c-a094-42a7c11bdf84.jpg",
+      "publishTime": "2024-11-06T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichesaishi/20241028/1695574928.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "新款保时捷 99X Electric 四驱电动方程式赛车横空出世",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/10/28/83179491-6c9d-43af-b477-dbcb2b70d159.jpg",
+      "publishTime": "2024-10-28T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichesaishi/20241027/2295550221.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "现代汽车与丰田汽车公司在韩国联合举办首届高性能汽车盛会",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/10/27/698d109d-5310-49f3-a704-51111bc24edf.jpg",
+      "publishTime": "2024-10-27T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichegaizhuang/20241023/0095422046.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "新生态，新未来！2024定制化汽车国际创新大会盛大召开",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/10/23/ba78aba4-3d8b-4cf8-ad5c-f71834d4d2df.jpg",
+      "publishTime": "2024-10-23T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichegaizhuang/20241023/0095422045.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "2024第十届AIT东莞改装展引领改装行业持续创新",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/10/23/41b5b0f8-5f0b-49ad-b8c4-bc4d1575d607.jpg",
+      "publishTime": "2024-10-23T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichewenhua/20241020/2295377624.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "2025澳网中国发布会举行 起亚EV5提供品质绿色出行体验",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/10/20/f6ad2f86-33e3-4ce5-b1bc-5e66a6283d22.jpg",
+      "publishTime": "2024-10-20T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichewenhua/20240929/1194799669.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "劳斯莱斯庆贺《007之金手指》幻影首登银幕60周年",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/09/29/c83fa803-2184-4b08-b6d2-77aeb650a48f.jpg",
+      "publishTime": "2024-09-29T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichewenhua/20240919/1094516697.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "Denodo 25周年庆典圆满落幕 共绘汽车与制造业数据管理新蓝图",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/09/19/5573314d-b64f-4851-ab64-571051ea8604.jpg",
+      "publishTime": "2024-09-19T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichesaishi/20240916/2294452040.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "程丛夫与方骏宇获GT世界挑战赛亚洲杯Silver组年度车手总冠军",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/09/16/f153dbd1-21fb-4055-a3fb-411c396a2ecc.jpg",
+      "publishTime": "2024-09-16T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichesaishi/20240912/2394339793.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "一汽奥迪赛车队将在主场收官战中向年度总冠军发起冲击",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/09/12/4c26ca53-8918-461d-9161-4e5a0ba9cde0.jpg",
+      "publishTime": "2024-09-12T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichewenhua/20240811/1593431026.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "礼遇新呈和创未来 红旗金葵花品牌全新专属渠道盛大启幕",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/08/11/03ec4c38-d5ff-45ef-8546-4bf6881f1ebe.jpg",
+      "publishTime": "2024-08-11T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichewenhua/20240729/2193073203.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "奥地利歌剧演唱家丹尼尔·瑟拉芬与红旗EH7共谱文艺交流新乐章",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/07/29/68a257b3-4337-4b4b-8924-05847ff7e3cb.jpg",
+      "publishTime": "2024-07-29T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichewenhua/20240721/2192851344.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "新质创领 智造旗技 中国一汽加快发展新质生产力",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/07/21/4bc25ec3-138f-45f4-a602-dffe53e1abfe.jpg",
+      "publishTime": "2024-07-21T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichewenhua/20240719/1492789101.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "践行负责任的新豪华 宝马在中国举办第四届可持续发展峰会",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/07/19/c605ca38-3517-4d80-821d-bd1d3ae678ab.jpg",
+      "publishTime": "2024-07-19T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichewenhua/20240621/1791894281.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "保时捷X米其林「竞驰街区」闪现魔都",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/06/17/860a858e-e729-49ca-b4a3-4a8fda1e28c2.jpg",
+      "publishTime": "2024-06-21T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichesaishi/20240531/1391450329.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "平民玩家也能体验“高端”赛事北京汽车参赛环塔给出满分答卷",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/05/31/b5daa241-4df5-47ea-923b-cc90b5b5da78.jpg",
+      "publishTime": "2024-05-31T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichesaishi/20240524/2191282834.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "捷豹TCS车队上海首秀在即 坚定第四代赛车纪元承诺",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/05/24/72883908-98fe-4a12-8c46-1127cc3992c0.jpg",
+      "publishTime": "2024-05-24T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichewenhua/20240520/1791165995.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "上海汽车博物馆举办2024Carnival车趣集 打造汽车文化嘉年华",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/05/20/d59051d8-cabc-4b11-806d-58babb2fa62c.jpg",
+      "publishTime": "2024-05-20T00:00:00.000Z"
+    },
+    {
+      "url": "https://news.yiche.com/qichesaishi/20240429/1390608156.html",
+      "source": "yiche",
+      "category": "游记",
+      "title": "2024中国大学生方程式系列赛事正式启动 李斌出席",
+      "coverImage": "https://image.bitautoimg.com/appimage-560-w0/news/2024/04/29/4743a77c-7916-439c-a335-c5cd3cd87361.jpg",
+      "publishTime": "2024-04-29T00:00:00.000Z"
     },
     {
       "url": "https://news.yiche.com/shijiatiyan/20260127/15107068150.html",
