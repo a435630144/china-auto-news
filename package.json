@@ -1,0 +1,6 @@
+{
+  "start": "node crawl_v4.js",
+  "dependencies": {
+    "iconv-lite": "^0.7.2"
+  }
+}
