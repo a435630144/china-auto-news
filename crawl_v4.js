@@ -1,5 +1,11 @@
 require('dotenv').config();
 
+// 解析 --env 参数（如 npm run start:online 传入 --env online）
+const envIdx = process.argv.indexOf('--env');
+if (envIdx !== -1 && process.argv[envIdx + 1]) {
+  process.env.CRAWLER_MODE = process.argv[envIdx + 1];
+}
+
 const https = require('https');
 const zlib = require('zlib');
 const iconv = require('iconv-lite');
@@ -270,6 +276,10 @@ function parseYiche(html, catName, ogTitleMap) {
     if (!title) {
       const hMatch = anchorBlock.match(/<h[34][^>]*>\s*([^<]{5,100})\s*<\//i);
       if (hMatch) title = hMatch[1].trim();
+    }
+    if (!title) {
+      const dataTitleMatch = anchorBlock.match(/data-title\s*=\s*["']([^"']{3,100})["']/i);
+      if (dataTitleMatch) title = dataTitleMatch[1].trim();
     }
 
     let coverImage = null;

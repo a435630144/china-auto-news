@@ -16,16 +16,91 @@
 
 ## 快速开始
 
+### 1. 安装依赖
+
 ```bash
 npm install
-# 本地模式（默认）- 输出到 ./hot-articles.json
-npm start
+```
 
-# 在线模式 - 输出到 MySQL 数据库（需要配置 .env）
+### 2. 运行模式
+
+#### 2.1 本地模式（默认）
+
+输出结果到 `./hot-articles.json` 文件：
+
+```bash
+npm start
+```
+
+#### 2.2 在线模式
+
+输出结果到 MySQL 数据库（需要配置 `.env` 文件）：
+
+```bash
 npm run start:online
 ```
 
-> 配置数据库：在 `.env` 文件中设置 `DB_TYPE`、`DB_HOST`、`DB_PORT`、`DB_USER`、`DB_PASSWORD`、`DB_NAME`
+### 3. 环境变量配置
+
+创建 `.env` 文件并配置以下参数：
+
+```dotenv
+# 数据库类型（目前仅支持 mysql）
+DB_TYPE=mysql
+
+# 数据库连接信息
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD=your_password
+DB_NAME=auto_news
+
+# 爬取配置（可选）
+# 超时时间（毫秒）
+TIMEOUT=30000
+# 并发请求数
+CONCURRENCY=5
+```
+
+### 4. 运行结果
+
+#### 4.1 本地模式
+
+运行完成后，会在当前目录生成 `hot-articles.json` 文件，包含所有爬取的文章数据。
+
+#### 4.2 在线模式
+
+运行完成后，数据会写入 MySQL 数据库的 `auto_news` 表中。系统会自动创建表结构（如果不存在）。
+
+### 5. 查看结果
+
+- **本地模式**：直接打开 `hot-articles.json` 文件查看
+- **在线模式**：使用 MySQL 客户端连接数据库查看 `auto_news` 表
+
+### 6. 常见问题
+
+#### 6.1 编码错误
+
+如果遇到编码相关的错误，可能是 `iconv-lite` 依赖未正确安装。请重新运行：
+
+```bash
+npm install iconv-lite --save
+```
+
+#### 6.2 数据库连接失败
+
+- 确保 MySQL 服务正在运行
+- 检查 `.env` 文件中的数据库配置是否正确
+- 确保数据库用户有创建表和写入数据的权限
+
+#### 6.3 爬取速度过慢
+
+可以在 `.env` 文件中调整 `CONCURRENCY` 参数，增加并发请求数：
+
+```dotenv
+# 增加并发数（根据服务器性能调整）
+CONCURRENCY=10
+```
 
 ---
 
@@ -189,8 +264,10 @@ npm run start:online
 ## 文件结构
 
 ```
+├── .gitignore         # Git忽略文件配置
 ├── crawl_v4.js        # 主爬虫脚本（使用此文件）
-├── hot-articles.json # 爬取结果（运行后自动生成）
-├── README.md          # 本文档
-└── package.json       # 依赖声明（iconv-lite ^0.7.2）
+├── hot-articles.json  # 爬取结果（运行后自动生成）
+├── package-lock.json  # 依赖版本锁定文件
+├── package.json       # 依赖声明（iconv-lite ^0.7.2）
+└── README.md          # 本文档
 ```
