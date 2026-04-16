@@ -465,40 +465,40 @@ async function main() {
 
 const mysql = require('mysql2/promise');
 
-// ─── MySQL 数据库初始化 ───────────────────────────────────────────────────
-async function initDatabase() {
-  const conn = await mysql.createConnection({
-    host: process.env.DB_HOST,
-    port: Number(process.env.DB_PORT || 3306),
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    charset: 'utf8mb4',
-  });
+// ─── MySQL 数据库初始化（幂等：表存在则清空，不存在则创建） ────────
+async function initDatabase(conn) {
+  // 先判断表是否存在
+  const [rows] = await conn.execute(
+    `SELECT COUNT(*) AS cnt FROM information_schema.tables
+     WHERE table_schema = ? AND table_name = 'auto_news'`,
+    [process.env.DB_NAME],
+  );
 
-  // 建表（含 url 唯一索引防重复）
-  await conn.execute(`
-    CREATE TABLE IF NOT EXISTS auto_news (
-      id          BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-      url         VARCHAR(512) NOT NULL,
-      title       VARCHAR(512) DEFAULT NULL,
-      source      VARCHAR(32) NOT NULL,
-      category    VARCHAR(64) DEFAULT NULL,
-      cover_image VARCHAR(1024) DEFAULT NULL,
-      publish_time DATETIME DEFAULT NULL,
-      created_at  DATETIME DEFAULT CURRENT_TIMESTAMP,
-      UNIQUE INDEX idx_url (url)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
-  `);
-
-  await conn.end();
-  console.log('✅ MySQL 表 auto_news 已就绪');
+  if (rows[0].cnt > 0) {
+    // 表已存在，TRUNCATE（比 DROP+CREATE 更快，auto_increment 也重置）
+    await conn.execute('TRUNCATE TABLE auto_news');
+    console.log('已清空旧表 auto_news');
+  } else {
+    // 表不存在，新建
+    await conn.execute(`
+      CREATE TABLE auto_news (
+        id          BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        url         VARCHAR(512) NOT NULL,
+        title       VARCHAR(512) DEFAULT NULL,
+        source      VARCHAR(32) NOT NULL,
+        category    VARCHAR(64) DEFAULT NULL,
+        cover_image VARCHAR(1024) DEFAULT NULL,
+        publish_time DATETIME DEFAULT NULL,
+        created_at  DATETIME DEFAULT CURRENT_TIMESTAMP,
+        UNIQUE INDEX idx_url (url)
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+    `);
+    console.log('✅ MySQL 表 auto_news 已创建');
+  }
 }
 
 // ─── MySQL 写入 ───────────────────────────────────────────────────────────
 async function saveToDatabase(articles) {
-  await initDatabase();
-
   const conn = await mysql.createConnection({
     host: process.env.DB_HOST,
     port: Number(process.env.DB_PORT || 3306),
@@ -507,6 +507,9 @@ async function saveToDatabase(articles) {
     database: process.env.DB_NAME,
     charset: 'utf8mb4',
   });
+
+  // 复用同一连接初始化表
+  await initDatabase(conn);
 
   let inserted = 0;
   for (const a of articles) {
@@ -514,20 +517,11 @@ async function saveToDatabase(articles) {
       ? new Date(a.publishTime).toISOString().slice(0, 19).replace('T', ' ')
       : null;
 
-    const row = [
-      a.url,
-      a.title || null,
-      a.source,
-      a.category || null,
-      a.coverImage || null,
-      publishTime,
-    ];
-
     try {
       await conn.execute(
         `INSERT IGNORE INTO auto_news (url, title, source, category, cover_image, publish_time)
          VALUES (?, ?, ?, ?, ?, ?)`,
-        row,
+        [a.url, a.title || null, a.source, a.category || null, a.coverImage || null, publishTime],
       );
       inserted++;
     } catch(e) {
