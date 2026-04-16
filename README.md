@@ -18,12 +18,14 @@
 
 ```bash
 npm install
+# 本地模式（默认）- 输出到 ./hot-articles.json
 npm start
+
+# 在线模式 - 输出到 MySQL 数据库（需要配置 .env）
+npm run start:online
 ```
 
-输出文件：`hot-articles.json`（项目根目录）
-
-> 修改输出路径：在 `crawl_v4.js` 末尾 `fs.writeFileSync` 处改目标路径即可。
+> 配置数据库：在 `.env` 文件中设置 `DB_TYPE`、`DB_HOST`、`DB_PORT`、`DB_USER`、`DB_PASSWORD`、`DB_NAME`
 
 ---
 
@@ -73,52 +75,63 @@ npm start
 
 ## 输出格式
 
+### 本地模式（默认）
+
 ```json
 {
   "timestamp": "2026-04-16T04:53:00.000Z",
   "total": 247,
   "stats": {
-    "autohome": {
-      "total": 89,
-      "categories": { "最新": 60, "新闻": 29, "试驾": 0, ... }
-    },
-    "dongchedi": {
-      "total": 98,
-      "categories": { "最新": 25, "新车": 20, ... }
-    },
-    "yiche": {
-      "total": 60,
-      "categories": { "最新": 15, "新车": 12, ... }
-    }
+    "autohome": { "total": 89, "categories": { ... } },
+    "dongchedi": { "total": 98, "categories": { ... } },
+    "yiche": { "total": 60, "categories": { ... } }
   },
-  "outputPath": "./hot-articles.json",
-  "articles": [
-    {
-      "url": "https://www.autohome.com.cn/news/202604/1313579.html",
-      "title": "吉利全新SUV曝光，或售12万起",
-      "source": "autohome",
-      "category": "新闻",
-      "coverImage": "https://www.autoimg.cn/xxx.jpg",
-      "publishTime": "2026-04-15T00:00:00.000Z"
-    },
-    {
-      "url": "https://www.dongchedi.com/article/7628641165520142872",
-      "title": "比亚迪海豹DM-i实拍图赏",
-      "source": "dongchedi",
-      "category": "新车",
-      "coverImage": "https://p9-dcd-sign.byteimg.com/xxx.jpg",
-      "publishTime": null
-    },
-    {
-      "url": "https://news.yiche.com/xinchexiaoxi/20260415/12109131664.html",
-      "title": "小米汽车二季度交付量预计翻倍",
-      "source": "yiche",
-      "category": "新车消息",
-      "coverImage": "https://img.bitautoimg.com/xxx.jpg",
-      "publishTime": "2026-04-15T00:00:00.000Z"
-    }
-  ]
+  "articles": [...]
 }
+```
+
+### 在线模式（`npm run start:online`）
+
+数据写入 MySQL `auto_news` 表（需提前配置 `.env`），表结构：
+
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| `id` | BIGINT | 主键 |
+| `url` | VARCHAR(512) | 文章链接（唯一索引） |
+| `title` | VARCHAR(512) | 标题 |
+| `source` | VARCHAR(32) | 来源 autohome / dongchedi / yiche |
+| `category` | VARCHAR(64) | 分类名称 |
+| `cover_image` | VARCHAR(1024) | 封面图 URL |
+| `publish_time` | DATETIME | 发布时间 |
+| `created_at` | DATETIME | 入库时间 |
+
+```json
+[
+  {
+    "url": "https://www.autohome.com.cn/news/202604/1313579.html",
+    "title": "吉利全新SUV曝光，或售12万起",
+    "source": "autohome",
+    "category": "新闻",
+    "coverImage": "https://www.autoimg.cn/xxx.jpg",
+    "publishTime": "2026-04-15T00:00:00.000Z"
+  },
+  {
+    "url": "https://www.dongchedi.com/article/7628641165520142872",
+    "title": "比亚迪海豹DM-i实拍图赏",
+    "source": "dongchedi",
+    "category": "新车",
+    "coverImage": "https://p9-dcd-sign.byteimg.com/xxx.jpg",
+    "publishTime": null
+  },
+  {
+    "url": "https://news.yiche.com/xinche/20260415/12109131664.html",
+    "title": "小米汽车二季度交付量预计翻倍",
+    "source": "yiche",
+    "category": "新车",
+    "coverImage": "https://img.bitautoimg.com/xxx.jpg",
+    "publishTime": "2026-04-15T00:00:00.000Z"
+  }
+]
 ```
 
 ### 字段说明

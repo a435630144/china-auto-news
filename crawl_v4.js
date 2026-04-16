@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const https = require('https');
 const zlib = require('zlib');
 const iconv = require('iconv-lite');
@@ -433,12 +435,19 @@ async function main() {
     timestamp: new Date().toISOString(),
     total: allArticles.length,
     stats,
-    outputPath: 'D:\\OneDrive\\自学编程\\claude code\\work\\hot-articles.json',
     articles: allArticles,
   };
 
-  fs.writeFileSync('D:\\OneDrive\\自学编程\\claude code\\work\\hot-articles.json',
-    JSON.stringify(result, null, 2), 'utf8');
+  // ─── 本地 JSON 输出（默认） ───────────────────────────────────────────────
+  if (process.env.CRAWLER_MODE !== 'online') {
+    fs.writeFileSync('./hot-articles.json', JSON.stringify(result, null, 2));
+    console.log('已写入本地 JSON: ./hot-articles.json');
+  }
+
+  // ─── MySQL 输出（npm run start:online） ───────────────────────────────────
+  if (process.env.CRAWLER_MODE === 'online') {
+    await saveToDatabase(allArticles);
+  }
 
   console.log('\n=== 完成 ===');
   console.log('总计: ' + allArticles.length + ' 条');
@@ -452,6 +461,82 @@ async function main() {
     const a = allArticles.find(x => x.source === src && x.title && x.coverImage);
     if (a) console.log('  ' + src + ':', JSON.stringify(a, null, 2));
   }
+}
+
+const mysql = require('mysql2/promise');
+
+// ─── MySQL 数据库初始化 ───────────────────────────────────────────────────
+async function initDatabase() {
+  const conn = await mysql.createConnection({
+    host: process.env.DB_HOST,
+    port: Number(process.env.DB_PORT || 3306),
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    charset: 'utf8mb4',
+  });
+
+  // 建表（含 url 唯一索引防重复）
+  await conn.execute(`
+    CREATE TABLE IF NOT EXISTS auto_news (
+      id          BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+      url         VARCHAR(512) NOT NULL,
+      title       VARCHAR(512) DEFAULT NULL,
+      source      VARCHAR(32) NOT NULL,
+      category    VARCHAR(64) DEFAULT NULL,
+      cover_image VARCHAR(1024) DEFAULT NULL,
+      publish_time DATETIME DEFAULT NULL,
+      created_at  DATETIME DEFAULT CURRENT_TIMESTAMP,
+      UNIQUE INDEX idx_url (url)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+  `);
+
+  await conn.end();
+  console.log('✅ MySQL 表 auto_news 已就绪');
+}
+
+// ─── MySQL 写入 ───────────────────────────────────────────────────────────
+async function saveToDatabase(articles) {
+  await initDatabase();
+
+  const conn = await mysql.createConnection({
+    host: process.env.DB_HOST,
+    port: Number(process.env.DB_PORT || 3306),
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    charset: 'utf8mb4',
+  });
+
+  let inserted = 0;
+  for (const a of articles) {
+    const publishTime = a.publishTime
+      ? new Date(a.publishTime).toISOString().slice(0, 19).replace('T', ' ')
+      : null;
+
+    const row = [
+      a.url,
+      a.title || null,
+      a.source,
+      a.category || null,
+      a.coverImage || null,
+      publishTime,
+    ];
+
+    try {
+      await conn.execute(
+        `INSERT IGNORE INTO auto_news (url, title, source, category, cover_image, publish_time)
+         VALUES (?, ?, ?, ?, ?, ?)`,
+        row,
+      );
+      inserted++;
+    } catch(e) {
+      if (e.code !== 'ER_DUP_ENTRY') console.warn('写入失败:', e.message);
+    }
+  }
+
+  await conn.end();
+  console.log('✅ 已写入 MySQL: ' + inserted + ' 条');
 }
 
 main().catch(console.log);

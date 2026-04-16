@@ -1,8 +1,12 @@
 {
   "scripts": {
-    "start": "node crawl_v4.js"
+    "start": "node crawl_v4.js",
+    "start:local": "node crawl_v4.js",
+    "start:online": "node crawl_v4.js --env online"
   },
   "dependencies": {
-    "iconv-lite": "^0.7.2"
+    "dotenv": "^16.6.1",
+    "iconv-lite": "^0.7.2",
+    "mysql2": "^3.22.0"
   }
 }
