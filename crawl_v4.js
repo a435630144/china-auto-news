@@ -131,7 +131,8 @@ function findOgTitle(ogMap, urlPath) {
 // ─── AUTOHOME ────────────────────────────────────────────────────────────────
 function parseAutohome(html, catName) {
   const articles = [];
-  const validUrlRe = /\/(?:news|drive|use|advice|culture|tech|tuning|ev|hangye|newbrand)\/(?:\d{6}\/\d+\.html|article\?id=[a-zA-Z0-9_]+)/;
+  // 支持两种URL格式：/news/202605/1314075.html 和 /article?id=xxx（无分类前缀）
+  const validUrlRe = /\/(?:news|drive|use|advice|culture|tech|tuning|ev|hangye|newbrand)\/(?:\d{6}\/\d+\.html|article\?id=[a-zA-Z0-9_=]+)|article\?id=[a-zA-Z0-9_=]+/;
 
   const liRe = /<li\s+data-artidanchor\s*=\s*["']?(\d+)["']?[^>]*>([\s\S]*?)<\/li>/gi;
   let m;
@@ -156,16 +157,29 @@ function parseAutohome(html, catName) {
     const h3Match = liContent.match(/<h3[^>]*>\s*([^<]+)\s*<\/h3>/i);
     if (h3Match) title = h3Match[1].trim();
 
-    // 从 HTML 中提取真实日期（如 <span class="time">05-01 14:38</span>）
+    // 从 HTML 中提取真实日期
     let publishTime = null;
+    // 格式1: 绝对时间 <span class="time">05-01 14:38</span>
     const timeInLi = liContent.match(/<span[^>]*time[^>]*>\s*(\d{2})-(\d{2})\s*(\d{2}):(\d{2})/i);
     if (timeInLi) {
       const now = new Date();
       publishTime = now.getFullYear() + '-' + timeInLi[1] + '-' + timeInLi[2] + 'T' + timeInLi[3] + ':' + timeInLi[4] + ':00.000Z';
     } else {
-      // fallback: 从 URL 只能拿到月，精确不到日
-      const timeMatch = url.match(/\/(\d{4})(\d{2})\/(\d+)\.html/);
-      if (timeMatch) publishTime = timeMatch[1] + '-' + timeMatch[2] + '-01T00:00:00.000Z';
+      // 格式2: 相对时间 <span class="fn-left">37分钟前</span>
+      const relativeMatch = liContent.match(/<span[^>]*fn-left[^>]*>\s*(\d+)(分钟|小时|天)前/);
+      if (relativeMatch) {
+        const amount = parseInt(relativeMatch[1]);
+        const unit = relativeMatch[2];
+        const now = new Date();
+        if (unit === '分钟') now.setMinutes(now.getMinutes() - amount);
+        else if (unit === '小时') now.setHours(now.getHours() - amount);
+        else if (unit === '天') now.setDate(now.getDate() - amount);
+        publishTime = now.toISOString();
+      } else {
+        // fallback: 从 URL 只能拿到月，精确不到日
+        const timeMatch = url.match(/\/(\d{4})(\d{2})\/(\d+)\.html/);
+        if (timeMatch) publishTime = timeMatch[1] + '-' + timeMatch[2] + '-01T00:00:00.000Z';
+      }
     }
 
     articles.push({ url, source: 'autohome', category: catName, title, coverImage, publishTime });
