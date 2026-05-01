@@ -14,6 +14,8 @@ const fs = require('fs');
 function fetch(url, timeout) {
   return new Promise((resolve, reject) => {
     try {
+      // 统一使用 https（汽车之家的 http URL 也能重定向到 https）
+      if (url.startsWith('http:')) url = url.replace('http:', 'https:');
       const u = new URL(url);
       const req = https.request(u, {
         headers: {
@@ -154,11 +156,17 @@ function parseAutohome(html, catName) {
     const h3Match = liContent.match(/<h3[^>]*>\s*([^<]+)\s*<\/h3>/i);
     if (h3Match) title = h3Match[1].trim();
 
-    // 旧格式 /news/202604/1313635.html 有月信息，新格式 article?id=xxx 无时间
-    const timeMatch = url.match(/\/(\d{4})(\d{2})\/(\d+)\.html/);
-    const publishTime = timeMatch
-      ? timeMatch[1] + '-' + timeMatch[2] + '-01T00:00:00.000Z'
-      : null;
+    // 从 HTML 中提取真实日期（如 <span class="time">05-01 14:38</span>）
+    let publishTime = null;
+    const timeInLi = liContent.match(/<span[^>]*time[^>]*>\s*(\d{2})-(\d{2})\s*(\d{2}):(\d{2})/i);
+    if (timeInLi) {
+      const now = new Date();
+      publishTime = now.getFullYear() + '-' + timeInLi[1] + '-' + timeInLi[2] + 'T' + timeInLi[3] + ':' + timeInLi[4] + ':00.000Z';
+    } else {
+      // fallback: 从 URL 只能拿到月，精确不到日
+      const timeMatch = url.match(/\/(\d{4})(\d{2})\/(\d+)\.html/);
+      if (timeMatch) publishTime = timeMatch[1] + '-' + timeMatch[2] + '-01T00:00:00.000Z';
+    }
 
     articles.push({ url, source: 'autohome', category: catName, title, coverImage, publishTime });
   }
@@ -194,10 +202,16 @@ function parseAutohome(html, catName) {
                          ddContent.match(/title\s*=\s*["']([^"']{3,100})["']/i);
       if (titleMatch) title = titleMatch[1].trim();
 
-      const monthOnly = url.match(/\/(\d{4})(\d{2})\/\d+\.html/);
-      const publishTime = monthOnly
-        ? monthOnly[1] + '-' + monthOnly[2] + '-01T00:00:00.000Z'
-        : null;
+      // 从 HTML 中提取真实日期
+      let publishTime = null;
+      const timeInDd = ddContent.match(/<span[^>]*time[^>]*>\s*(\d{2})-(\d{2})\s*(\d{2}):(\d{2})/i);
+      if (timeInDd) {
+        const now = new Date();
+        publishTime = now.getFullYear() + '-' + timeInDd[1] + '-' + timeInDd[2] + 'T' + timeInDd[3] + ':' + timeInDd[4] + ':00.000Z';
+      } else {
+        const monthOnly = url.match(/\/(\d{4})(\d{2})\/\d+\.html/);
+        if (monthOnly) publishTime = monthOnly[1] + '-' + monthOnly[2] + '-01T00:00:00.000Z';
+      }
 
       articles.push({ url, source: 'autohome', category: catName, title, coverImage, publishTime });
     }
