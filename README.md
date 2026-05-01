@@ -42,7 +42,7 @@ npm run start:online
 
 ### 3. 环境变量配置
 
-创建 `.env` 文件并配置以下参数：
+创建 `.env` 文件（可参考 `.env.example`），主要配置如下：
 
 ```dotenv
 # 数据库类型（目前仅支持 mysql）
@@ -51,16 +51,17 @@ DB_TYPE=mysql
 # 数据库连接信息
 DB_HOST=localhost
 DB_PORT=3306
-DB_USER=root
+DB_USER=your_user
 DB_PASSWORD=your_password
 DB_NAME=auto_news
 
-# 爬取配置（可选）
-# 超时时间（毫秒）
-TIMEOUT=30000
-# 并发请求数
-CONCURRENCY=5
+# 爬取模式
+# local = 仅写入本地 JSON 文件（默认）
+# online = 写入 MySQL 数据库
+CRAWLER_MODE=local
 ```
+
+> **注意**：不要把真实的 `.env` 文件提交到 Git，它已在 `.gitignore` 中忽略。
 
 ### 4. 运行结果
 
