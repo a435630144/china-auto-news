@@ -71,7 +71,9 @@ CRAWLER_MODE=local
 
 #### 4.2 在线模式
 
-运行完成后，数据会写入 MySQL 数据库的 `auto_news` 表中。系统会自动创建表结构（如果不存在）。
+运行完成后，数据以**增量方式**写入 MySQL 数据库的 `auto_news` 表中（已存在的 URL 更新字段，新的插入；不会清空历史数据，某个站点抓取失败也不影响其他站点已入库的数据）。系统会自动创建表结构（如果不存在）。
+
+> **注意**：懂车帝目前要求登录后才能访问资讯列表（普通 UA 与搜索引擎 UA 均被拦截），需在 `.env` 中配置 `DONGCHEDI_COOKIE`（浏览器登录后 F12 -> Network 复制请求头中的 Cookie）；易车已内置百度蜘蛛 UA 自动通过风控，无需额外配置。若某站点抓取 0 条，脚本会打印 ⚠ 告警。
 
 ### 5. 查看结果
 
@@ -189,7 +191,7 @@ CONCURRENCY=10
     "source": "autohome",
     "category": "新闻",
     "coverImage": "https://www.autoimg.cn/xxx.jpg",
-    "publishTime": "2026-04-15T00:00:00.000Z"
+    "publishTime": "2026-04-15 00:00:00"
   },
   {
     "url": "https://www.dongchedi.com/article/7628641165520142872",
@@ -205,7 +207,7 @@ CONCURRENCY=10
     "source": "yiche",
     "category": "新车",
     "coverImage": "https://img.bitautoimg.com/xxx.jpg",
-    "publishTime": "2026-04-15T00:00:00.000Z"
+    "publishTime": "2026-04-15 00:00:00"
   }
 ]
 ```
@@ -219,7 +221,9 @@ CONCURRENCY=10
 | `source` | string | 来源平台：`autohome` / `dongchedi` / `yiche` |
 | `category` | string | 列表页所属分类名称 |
 | `coverImage` | string\|null | 封面图 URL |
-| `publishTime` | string\|null | 发布时间（ISO 8601），汽车之家和易车可从 URL 路径日期推断，懂车帝为 null |
+| `publishTime` | string\|null | 发布时间，格式 `'YYYY-MM-DD HH:mm:ss'`（**北京时间，无时区后缀**，与 MySQL DATETIME 一致）；懂车帝为 null |
+
+> **时区约定**：所有文章时间统一表示北京时间墙钟，不携带时区后缀。前端展示时直接按北京时间解读即可；若需转 UTC，请按 `Asia/Shanghai` 加 8 小时，不要用 `new Date(str)` 直接解析（会把字符串误当本地/UTC 时区）。
 
 ---
 
@@ -228,6 +232,12 @@ CONCURRENCY=10
 ### 编码处理
 
 汽车之家返回 **GBK** 编码（`Content-Type: text/html; charset=gb2312`），其他两家为 UTF8。`smartDecode()` 自动识别 `Content-Type` header 和 HTML 中的 `<meta charset>`，分别走 iconv 或直接 UTF8 解码。
+
+### 反爬应对
+
+- **易车**：对普通浏览器 UA 弹腾讯验证码，脚本对 yiche.com 使用百度蜘蛛 UA（`Baiduspider`）直接放行，页面结构不变
+- **懂车帝**：强制登录墙（302 → `/login-required`），需在 `.env` 配置 `DONGCHEDI_COOKIE`
+- **通用**：请求自动跟随 3xx 重定向（最多 3 跳）；分类页失败自动重试 2 次（递增间隔）；某分类 0 条时打印 ⚠ 告警，不再静默失败
 
 ### 压缩处理
 

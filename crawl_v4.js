@@ -11,19 +11,27 @@ const zlib = require('zlib');
 const iconv = require('iconv-lite');
 const fs = require('fs');
 
-function fetch(url, timeout) {
+const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+
+// 站点专属 UA：易车对普通浏览器 UA 弹验证码，百度蜘蛛 UA 可直接放行（页面结构不变）
+function siteUA(url) {
+  if (url.includes('yiche.com')) return 'Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)';
+  return 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36';
+}
+
+// 站点专属 Cookie（可选）：在 .env 配置 DONGCHEDI_COOKIE / YICHE_COOKIE
+// 用于通过懂车帝登录墙、易车验证码等风控（从浏览器 F12 复制 Cookie 即可）
+function siteCookie(url) {
+  if (url.includes('dongchedi.com') && process.env.DONGCHEDI_COOKIE) return process.env.DONGCHEDI_COOKIE;
+  if (url.includes('yiche.com') && process.env.YICHE_COOKIE) return process.env.YICHE_COOKIE;
+  return null;
+}
+
+function fetchOnce(url, headers, timeout) {
   return new Promise((resolve, reject) => {
     try {
-      // 统一使用 https（汽车之家的 http URL 也能重定向到 https）
-      if (url.startsWith('http:')) url = url.replace('http:', 'https:');
       const u = new URL(url);
-      const req = https.request(u, {
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36',
-          'Accept-Language': 'zh-CN,zh;q=0.9',
-          'Accept-Encoding': 'gzip, deflate, br',
-        },
-      }, res => {
+      const req = https.request(u, { headers }, res => {
         const chunks = [];
         res.on('data', c => chunks.push(c));
         res.on('end', () => {
@@ -46,6 +54,30 @@ function fetch(url, timeout) {
   });
 }
 
+async function fetch(url, timeout, redirects) {
+  // 统一使用 https（汽车之家的 http URL 也能重定向到 https）
+  if (url.startsWith('http:')) url = url.replace('http:', 'https:');
+  const headers = {
+    'User-Agent': siteUA(url),
+    'Accept-Language': 'zh-CN,zh;q=0.9',
+    'Accept-Encoding': 'gzip, deflate, br',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+  };
+  const cookie = siteCookie(url);
+  if (cookie) headers['Cookie'] = cookie;
+
+  const res = await fetchOnce(url, headers, timeout);
+
+  // 跟随 3xx 重定向（最多 3 跳），否则拿到空页面会静默解析出 0 条
+  if (res.status >= 300 && res.status < 400 && res.headers.location && (redirects || 0) < 3) {
+    const next = res.headers.location.startsWith('http')
+      ? res.headers.location
+      : new URL(res.headers.location, url).href;
+    return fetch(next, timeout, (redirects || 0) + 1);
+  }
+  return { status: res.status, headers: res.headers, body: res.body };
+}
+
 function smartDecode(buf, headers) {
   const ct = headers['content-type'] || '';
   if (ct.includes('gbk') || ct.includes('gb2312') || ct.includes('charset=gb')) return iconv.decode(buf, 'gbk');
@@ -54,6 +86,12 @@ function smartDecode(buf, headers) {
              sample.match(/<meta[^>]+content\s*=\s*["'][^"']*charset=([a-zA-Z0-9\-_]+)/i);
   if (mc) { const cs = mc[1].toLowerCase(); if (cs==='gbk'||cs==='gb2312'||cs==='gb18030') return iconv.decode(buf, 'gbk'); }
   return iconv.decode(buf, 'utf8');
+}
+
+// 统一时间语义：文章时间一律为"北京时间墙钟"，格式 'YYYY-MM-DD HH:mm:ss'
+// MySQL DATETIME 不带时区，读取端需按 Asia/Shanghai 解释；写入时原样入库，不做任何时区换算
+function fmtBeijingWall(d) {
+  return d.toLocaleString('sv-SE', { timeZone: 'Asia/Shanghai' });
 }
 
 function normalize(url) {
@@ -77,27 +115,27 @@ function extractAutohomePublishTime(html) {
   if (ssrMatch) {
     const [date, hm] = ssrMatch[1].split(' ');
     const [h, mi] = hm.split(':');
-    return `${date}T${h.padStart(2,'0')}:${mi}:00.000Z`;
+    return `${date} ${h.padStart(2,'0')}:${mi}:00`;
   }
 
   // 格式2: og:published_time
   const ogMatch = html.match(/<meta[^>]+property\s*=\s*["']article:published_time["'][^>]+content\s*=\s*["']([^"']+)["']/i) ||
                   html.match(/<meta[^>]+content\s*=\s*["']([^"']+)["'][^>]+property\s*=\s*["']article:published_time["']/i);
-  if (ogMatch) { const d = new Date(ogMatch[1]); if (!isNaN(d)) return d.toISOString(); }
+  if (ogMatch) { const d = new Date(ogMatch[1]); if (!isNaN(d)) return fmtBeijingWall(d); }
 
   // 格式3: <span class="fn-left">2026-04-16 10:30:00</span>
   const fnMatch = html.match(/<span[^>]+class\s*=\s*["']fn-left["'][^>]*>\s*(\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}(?::\d{2})?)/);
   if (fnMatch) {
     const [date, hm] = fnMatch[1].split(' ');
     const [h, mi] = hm.split(':');
-    return `${date}T${h.padStart(2,'0')}:${mi}:00.000Z`;
+    return `${date} ${h.padStart(2,'0')}:${mi}:00`;
   }
 
   // 格式4: 2026年04月16日 10:30 形式
   const cnMatch = html.match(/(\d{4})年(\d{1,2})月(\d{1,2})日\s+\d{2}:\d{2}/);
   if (cnMatch) {
     const [, y, mo, d] = cnMatch;
-    return `${y}-${mo.padStart(2,'0')}-${d.padStart(2,'0')}T00:00:00.000Z`;
+    return `${y}-${mo.padStart(2,'0')}-${d.padStart(2,'0')} 00:00:00`;
   }
 
   return null;
@@ -163,7 +201,7 @@ function parseAutohome(html, catName) {
     const timeInLi = liContent.match(/<span[^>]*time[^>]*>\s*(\d{2})-(\d{2})\s*(\d{2}):(\d{2})/i);
     if (timeInLi) {
       const now = new Date();
-      publishTime = now.getFullYear() + '-' + timeInLi[1] + '-' + timeInLi[2] + 'T' + timeInLi[3] + ':' + timeInLi[4] + ':00.000Z';
+      publishTime = now.getFullYear() + '-' + timeInLi[1] + '-' + timeInLi[2] + ' ' + timeInLi[3] + ':' + timeInLi[4] + ':00';
     } else {
       // 格式2: 相对时间 <span class="fn-left">37分钟前</span>
       const relativeMatch = liContent.match(/<span[^>]*fn-left[^>]*>\s*(\d+)(分钟|小时|天)前/);
@@ -174,11 +212,11 @@ function parseAutohome(html, catName) {
         if (unit === '分钟') now.setMinutes(now.getMinutes() - amount);
         else if (unit === '小时') now.setHours(now.getHours() - amount);
         else if (unit === '天') now.setDate(now.getDate() - amount);
-        publishTime = now.toISOString();
+        publishTime = fmtBeijingWall(now);
       } else {
         // fallback: 从 URL 只能拿到月，精确不到日
         const timeMatch = url.match(/\/(\d{4})(\d{2})\/(\d+)\.html/);
-        if (timeMatch) publishTime = timeMatch[1] + '-' + timeMatch[2] + '-01T00:00:00.000Z';
+        if (timeMatch) publishTime = timeMatch[1] + '-' + timeMatch[2] + '-01 00:00:00';
       }
     }
 
@@ -221,10 +259,10 @@ function parseAutohome(html, catName) {
       const timeInDd = ddContent.match(/<span[^>]*time[^>]*>\s*(\d{2})-(\d{2})\s*(\d{2}):(\d{2})/i);
       if (timeInDd) {
         const now = new Date();
-        publishTime = now.getFullYear() + '-' + timeInDd[1] + '-' + timeInDd[2] + 'T' + timeInDd[3] + ':' + timeInDd[4] + ':00.000Z';
+        publishTime = now.getFullYear() + '-' + timeInDd[1] + '-' + timeInDd[2] + ' ' + timeInDd[3] + ':' + timeInDd[4] + ':00';
       } else {
         const monthOnly = url.match(/\/(\d{4})(\d{2})\/\d+\.html/);
-        if (monthOnly) publishTime = monthOnly[1] + '-' + monthOnly[2] + '-01T00:00:00.000Z';
+        if (monthOnly) publishTime = monthOnly[1] + '-' + monthOnly[2] + '-01 00:00:00';
       }
 
       articles.push({ url, source: 'autohome', category: catName, title, coverImage, publishTime });
@@ -290,7 +328,7 @@ function parseYiche(html, catName, ogTitleMap) {
     const fullUrl = 'https://news.yiche.com' + urlPath;
     const timeMatch = urlPath.match(/\/(\d{4})(\d{2})(\d{2})\//);
     const publishTime = timeMatch
-      ? timeMatch[1] + '-' + timeMatch[2] + '-' + timeMatch[3] + 'T00:00:00.000Z'
+      ? timeMatch[1] + '-' + timeMatch[2] + '-' + timeMatch[3] + ' 00:00:00'
       : null;
 
     const anchorStart = Math.max(0, m.index - 100);
@@ -344,7 +382,7 @@ function parseYiche(html, catName, ogTitleMap) {
 async function fetchAutohomeDetailTimes(articles) {
   // 找所有需要补充的汽车之家文章（当前为 month-01 的）
   const needDetail = articles.filter(a =>
-    a.source === 'autohome' && a.publishTime && a.publishTime.endsWith('-01T00:00:00.000Z')
+    a.source === 'autohome' && a.publishTime && a.publishTime.endsWith('-01 00:00:00')
   );
 
   if (needDetail.length === 0) return;
@@ -359,7 +397,7 @@ async function fetchAutohomeDetailTimes(articles) {
     }
 
     if ((i + 10) % 50 === 0 || i + 10 >= needDetail.length) {
-      const updated = batch.filter(x => x.publishTime && !x.publishTime.endsWith('-01T00:00:00.000Z')).length;
+      const updated = batch.filter(x => x.publishTime && !x.publishTime.endsWith('-01 00:00:00')).length;
       console.log('  进度 ' + Math.min(i + 10, needDetail.length) + '/' + needDetail.length + '，本批更新 ' + updated + ' 条');
     }
   }
@@ -430,8 +468,20 @@ async function main() {
   for (const site of sites) {
     for (const cat of site.categories) {
       console.log('抓取 ' + site.name + ' ' + cat.name + '...');
+      let fetched = null, lastErr = null;
+      for (let attempt = 1; attempt <= 3; attempt++) {
+        try {
+          fetched = await fetch(cat.url);
+          lastErr = null;
+          break;
+        } catch(err) {
+          lastErr = err;
+          if (attempt < 3) await sleep(2000 * attempt);
+        }
+      }
       try {
-        const { status, headers, body } = await fetch(cat.url);
+        if (!fetched) throw (lastErr || new Error('fetch failed'));
+        const { status, headers, body } = fetched;
         const html = smartDecode(body, headers);
         const ogTitleMap = extractOgTitleMap(html);
         const parse = site.name === 'autohome' ? parseAutohome : site.parse;
@@ -452,6 +502,10 @@ async function main() {
         const hasCover = articles.length > 0 && articles[0].coverImage ? '✓' : '✗';
         console.log('  -> ' + articles.length + ' 条, 新增 ' + newCount
           + ' (标题:' + hasTitle + ' 封面:' + hasCover + ')');
+        if (articles.length === 0) {
+          console.log('  ⚠ 0 条且 HTTP ' + status + '，可能是反爬/登录墙/页面改版'
+            + (siteCookie(cat.url) ? '' : '（可尝试在 .env 配置该站 Cookie）'));
+        }
       } catch(e) {
         console.log('  -> ERR: ' + e.message);
       }
@@ -492,7 +546,7 @@ async function main() {
   console.log('有标题: ' + allArticles.filter(a => a.title).length);
   console.log('有封面: ' + allArticles.filter(a => a.coverImage).length);
   console.log('有时间: ' + allArticles.filter(a => a.publishTime).length);
-  const exactDay = allArticles.filter(a => a.source === 'autohome' && a.publishTime && !a.publishTime.endsWith('-01T00:00:00.000Z')).length;
+  const exactDay = allArticles.filter(a => a.source === 'autohome' && a.publishTime && !a.publishTime.endsWith('-01 00:00:00')).length;
   console.log('（其中精确到日的汽车之家: ' + exactDay + ' 条）');
   console.log('\n各源示例:');
   for (const src of ['autohome', 'dongchedi', 'yiche']) {
@@ -503,39 +557,26 @@ async function main() {
 
 const mysql = require('mysql2/promise');
 
-// ─── MySQL 数据库初始化（幂等：表存在则清空，不存在则创建） ────────
+// ─── MySQL 数据库初始化（幂等：表不存在则创建，存在则保留历史数据） ────────
 async function initDatabase(conn) {
-  // 先判断表是否存在
-  const [rows] = await conn.execute(
-    `SELECT COUNT(*) AS cnt FROM information_schema.tables
-     WHERE table_schema = ? AND table_name = 'auto_news'`,
-    [process.env.DB_NAME],
-  );
-
-  if (rows[0].cnt > 0) {
-    // 表已存在，TRUNCATE（比 DROP+CREATE 更快，auto_increment 也重置）
-    await conn.execute('TRUNCATE TABLE auto_news');
-    console.log('已清空旧表 auto_news');
-  } else {
-    // 表不存在，新建
-    await conn.execute(`
-      CREATE TABLE auto_news (
-        id          BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-        url         VARCHAR(512) NOT NULL,
-        title       VARCHAR(512) DEFAULT NULL,
-        source      VARCHAR(32) NOT NULL,
-        category    VARCHAR(64) DEFAULT NULL,
-        cover_image VARCHAR(1024) DEFAULT NULL,
-        publish_time DATETIME DEFAULT NULL,
-        created_at  DATETIME DEFAULT CURRENT_TIMESTAMP,
-        UNIQUE INDEX idx_url (url)
-      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
-    `);
-    console.log('✅ MySQL 表 auto_news 已创建');
-  }
+  await conn.execute(`
+    CREATE TABLE IF NOT EXISTS auto_news (
+      id          BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+      url         VARCHAR(512) NOT NULL,
+      title       VARCHAR(512) DEFAULT NULL,
+      source      VARCHAR(32) NOT NULL,
+      category    VARCHAR(64) DEFAULT NULL,
+      cover_image VARCHAR(1024) DEFAULT NULL,
+      publish_time DATETIME DEFAULT NULL,
+      created_at  DATETIME DEFAULT CURRENT_TIMESTAMP,
+      updated_at  DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+      UNIQUE INDEX idx_url (url)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+  `);
+  console.log('✅ MySQL 表 auto_news 就绪（增量写入，保留历史数据）');
 }
 
-// ─── MySQL 写入 ───────────────────────────────────────────────────────────
+// ─── MySQL 写入（增量 upsert：已存在的 URL 更新字段，不存在的插入） ───────
 async function saveToDatabase(articles) {
   const conn = await mysql.createConnection({
     host: process.env.DB_HOST,
@@ -546,29 +587,40 @@ async function saveToDatabase(articles) {
     charset: 'utf8mb4',
   });
 
-  // 复用同一连接初始化表
   await initDatabase(conn);
 
-  let inserted = 0;
+  let inserted = 0, updated = 0;
   for (const a of articles) {
-    const publishTime = a.publishTime
-      ? new Date(a.publishTime).toISOString().slice(0, 19).replace('T', ' ')
-      : null;
+    // publishTime 已是 'YYYY-MM-DD HH:mm:ss' 的北京时间墙钟，原样入库，不做时区换算
+    const publishTime = a.publishTime ? String(a.publishTime).slice(0, 19) : null;
 
     try {
-      await conn.execute(
-        `INSERT IGNORE INTO auto_news (url, title, source, category, cover_image, publish_time)
-         VALUES (?, ?, ?, ?, ?, ?)`,
+      // publish_time 只升级不降级：NULL→有值、月初占位(00:00:00)→精确到时分秒 才覆盖
+      const [result] = await conn.execute(
+        `INSERT INTO auto_news (url, title, source, category, cover_image, publish_time)
+         VALUES (?, ?, ?, ?, ?, ?)
+         ON DUPLICATE KEY UPDATE
+           title = VALUES(title),
+           category = VALUES(category),
+           cover_image = VALUES(cover_image),
+           publish_time = IF(
+             VALUES(publish_time) IS NULL,
+             publish_time,
+             IF(publish_time IS NULL OR (RIGHT(publish_time, 8) = '00:00:00' AND RIGHT(VALUES(publish_time), 8) <> '00:00:00'),
+                VALUES(publish_time),
+                publish_time)
+           )`,
         [a.url, a.title || null, a.source, a.category || null, a.coverImage || null, publishTime],
       );
-      inserted++;
+      if (result.affectedRows === 1) inserted++;
+      else if (result.affectedRows === 2) updated++;
     } catch(e) {
-      if (e.code !== 'ER_DUP_ENTRY') console.warn('写入失败:', e.message);
+      console.warn('写入失败:', a.url, e.message);
     }
   }
 
   await conn.end();
-  console.log('✅ 已写入 MySQL: ' + inserted + ' 条');
+  console.log('✅ 已写入 MySQL: 新增 ' + inserted + ' 条, 更新 ' + updated + ' 条');
 }
 
 main().catch(console.log);
