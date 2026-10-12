@@ -576,51 +576,99 @@ async function initDatabase(conn) {
   console.log('✅ MySQL 表 auto_news 就绪（增量写入，保留历史数据）');
 }
 
-// ─── MySQL 写入（增量 upsert：已存在的 URL 更新字段，不存在的插入） ───────
-async function saveToDatabase(articles) {
-  const conn = await mysql.createConnection({
+// ─── 数据库配置（主库 + 备用库，主库连不上时自动切换备用库） ──────────────
+function dbConfigs() {
+  const list = [{
+    label: '主库',
     host: process.env.DB_HOST,
     port: Number(process.env.DB_PORT || 3306),
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
-    charset: 'utf8mb4',
-  });
+  }];
+  if (process.env.DB2_HOST) {
+    list.push({
+      label: '备用库',
+      host: process.env.DB2_HOST,
+      port: Number(process.env.DB2_PORT || 3306),
+      user: process.env.DB2_USER,
+      password: process.env.DB2_PASSWORD,
+      database: process.env.DB2_NAME,
+    });
+  }
+  return list;
+}
 
-  await initDatabase(conn);
+// 带重试的连接（默认 3 次，间隔递增 3s/6s）
+async function createDbConn(cfg, attempts = 3) {
+  let lastErr = null;
+  for (let attempt = 1; attempt <= attempts; attempt++) {
+    try {
+      return await mysql.createConnection({ ...cfg, charset: 'utf8mb4', connectTimeout: 15000 });
+    } catch (e) {
+      lastErr = e;
+      if (attempt < attempts) await sleep(3000 * attempt);
+    }
+  }
+  throw lastErr;
+}
 
-  let inserted = 0, updated = 0;
-  for (const a of articles) {
-    // publishTime 已是 'YYYY-MM-DD HH:mm:ss' 的北京时间墙钟，原样入库，不做时区换算
-    const publishTime = a.publishTime ? String(a.publishTime).slice(0, 19) : null;
+// ─── MySQL 写入（增量 upsert：已存在的 URL 更新字段，不存在的插入） ───────
+async function saveToDatabase(articles) {
+  for (const cfg of dbConfigs()) {
+    let conn;
+    try {
+      conn = await createDbConn(cfg);
+    } catch (e) {
+      console.warn('⚠️ ' + cfg.label + '(' + cfg.host + ') 连接失败（已重试 3 次）: ' + (e.code || e.message));
+      continue; // 切换下一个库
+    }
 
     try {
-      // publish_time 只升级不降级：NULL→有值、月初占位(00:00:00)→精确到时分秒 才覆盖
-      const [result] = await conn.execute(
-        `INSERT INTO auto_news (url, title, source, category, cover_image, publish_time)
-         VALUES (?, ?, ?, ?, ?, ?)
-         ON DUPLICATE KEY UPDATE
-           title = VALUES(title),
-           category = VALUES(category),
-           cover_image = VALUES(cover_image),
-           publish_time = IF(
-             VALUES(publish_time) IS NULL,
-             publish_time,
-             IF(publish_time IS NULL OR (RIGHT(publish_time, 8) = '00:00:00' AND RIGHT(VALUES(publish_time), 8) <> '00:00:00'),
-                VALUES(publish_time),
-                publish_time)
-           )`,
-        [a.url, a.title || null, a.source, a.category || null, a.coverImage || null, publishTime],
-      );
-      if (result.affectedRows === 1) inserted++;
-      else if (result.affectedRows === 2) updated++;
-    } catch(e) {
-      console.warn('写入失败:', a.url, e.message);
+      await initDatabase(conn);
+
+      let inserted = 0, updated = 0;
+      for (const a of articles) {
+        // publishTime 已是 'YYYY-MM-DD HH:mm:ss' 的北京时间墙钟，原样入库，不做时区换算
+        const publishTime = a.publishTime ? String(a.publishTime).slice(0, 19) : null;
+
+        try {
+          // publish_time 只升级不降级：NULL→有值、月初占位(00:00:00)→精确到时分秒 才覆盖
+          const [result] = await conn.execute(
+            `INSERT INTO auto_news (url, title, source, category, cover_image, publish_time)
+             VALUES (?, ?, ?, ?, ?, ?)
+             ON DUPLICATE KEY UPDATE
+               title = VALUES(title),
+               category = VALUES(category),
+               cover_image = VALUES(cover_image),
+               publish_time = IF(
+                 VALUES(publish_time) IS NULL,
+                 publish_time,
+                 IF(publish_time IS NULL OR (RIGHT(publish_time, 8) = '00:00:00' AND RIGHT(VALUES(publish_time), 8) <> '00:00:00'),
+                    VALUES(publish_time),
+                    publish_time)
+               )`,
+            [a.url, a.title || null, a.source, a.category || null, a.coverImage || null, publishTime],
+          );
+          if (result.affectedRows === 1) inserted++;
+          else if (result.affectedRows === 2) updated++;
+        } catch(e) {
+          console.warn('写入失败:', a.url, e.message);
+        }
+      }
+
+      await conn.end();
+      console.log('✅ 已写入 ' + cfg.label + '(' + cfg.host + '): 新增 ' + inserted + ' 条, 更新 ' + updated + ' 条');
+      return cfg.label;
+    } catch (e) {
+      console.warn('⚠️ ' + cfg.label + '(' + cfg.host + ') 写入异常: ' + (e.code || e.message));
+      try { await conn.end(); } catch (_) {}
+      continue; // 切换下一个库
     }
   }
 
-  await conn.end();
-  console.log('✅ 已写入 MySQL: 新增 ' + inserted + ' 条, 更新 ' + updated + ' 条');
+  console.error('❌ 主库与备用库均无法写入，本轮数据未入库');
+  process.exitCode = 1; // 让定时任务日志能看到失败状态
 }
 
 main().catch(console.log);
