@@ -570,7 +570,7 @@ async function initDatabase(conn) {
       publish_time DATETIME DEFAULT NULL,
       created_at  DATETIME DEFAULT CURRENT_TIMESTAMP,
       updated_at  DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-      UNIQUE INDEX idx_url (url)
+      UNIQUE INDEX idx_url (url(191))
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
   `);
   console.log('✅ MySQL 表 auto_news 就绪（增量写入，保留历史数据）');
